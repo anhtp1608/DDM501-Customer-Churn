@@ -1,5 +1,8 @@
-flask
-pandas
-numpy
-scikit-learn
+black
+flake8
 mlflow
+pandas
+scikit-learn
+flask
+numpy
+gunicorn

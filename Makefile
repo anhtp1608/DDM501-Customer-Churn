@@ -1,10 +1,8 @@
-# Makefile cho Python project LOCAL
-
-# ========== Các biến ==========
+# ========== Variables ==========
 PYTHON=python
 PIP=pip
 
-# ========== Các target ==========
+# ========== Targets ==========
 
 install:
 	$(PIP) install -r requirements.txt
@@ -24,14 +22,19 @@ mlflow-ui:
 format:
 	black .
 
+lint:
+	flake8 --select=E,F,W --show-source --statistics $(shell find . -name "*.py")
+
 # ========== Help ==========
 help:
-	@echo "Các lệnh Makefile hỗ trợ:"
-	@echo "  make install    - Cài thư viện Python từ requirements.txt"
-	@echo "  make data       - Sinh dữ liệu mẫu"
-	@echo "  make train      - Train model và log vào MLflow"
-	@echo "  make run        - Chạy Flask web app"
-	@echo "  make mlflow-ui  - Chạy MLflow UI tại localhost:5000"
-	@echo "  make format     - Format code bằng black"
+	@echo "Makefile hỗ trợ các lệnh sau:"
+	@echo "  make install     - Cài đặt dependencies từ requirements.txt"
+	@echo "  make data        - Sinh dữ liệu giả lập"
+	@echo "  make train       - Train model và log MLflow"
+	@echo "  make run         - Chạy Flask web application"
+	@echo "  make mlflow-ui   - Chạy MLflow UI local tại http://127.0.0.1:5000"
+	@echo "  make format      - Format code theo chuẩn black"
+	@echo "  make lint        - Kiểm tra lỗi code theo chuẩn flake8"
+	@echo "  make help        - Hiển thị hướng dẫn"
 
-.PHONY: install data train run mlflow-ui format help
+.PHONY: install data train run mlflow-ui format lint help
