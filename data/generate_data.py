@@ -59,7 +59,9 @@ def generate_data():
     df["NumOfProducts"] = np.random.randint(1, 5, size=len(df))
     df["Tenure"] = np.random.randint(0, 11, size=len(df))
 
-    df["Geography"] = np.random.choice(["France", "Spain", "Germany"], size=len(df))
+    df["Geography"] = np.random.choice(
+        ["France", "Spain", "Germany"],
+        size=len(df))
     df["Gender"] = np.random.choice(["Male", "Female"], size=len(df))
 
     df["RowNumber"] = range(1, len(df) + 1)

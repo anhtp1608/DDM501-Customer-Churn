@@ -23,7 +23,7 @@ format:
 	black .
 
 lint:
-	flake8 --select=E,F,W --show-source --statistics $(shell find . -name "*.py")
+	flake8 --exclude=venv --select=E,F,W --show-source --statistics .
 
 # ========== Help ==========
 help:

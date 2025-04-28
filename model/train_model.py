@@ -1,5 +1,4 @@
 import pandas as pd
-import numpy as np
 import mlflow
 import mlflow.sklearn
 from sklearn.model_selection import train_test_split, GridSearchCV
@@ -36,7 +35,10 @@ numeric_features = [
 categorical_features = ["Geography", "Gender"]
 
 numeric_transformer = Pipeline(
-    steps=[("imputer", SimpleImputer(strategy="mean")), ("scaler", StandardScaler())]
+    steps=[
+        ("imputer", SimpleImputer(strategy="mean")),
+        ("scaler", StandardScaler())
+    ]
 )
 
 categorical_transformer = Pipeline(
@@ -85,7 +87,12 @@ X_train, X_test, y_train, y_test = train_test_split(
 for model_name, model in models.items():
     print(f"Training {model_name}...")
 
-    pipeline = Pipeline(steps=[("preprocessor", preprocessor), ("classifier", model)])
+    pipeline = Pipeline(
+        steps=[
+            ("preprocessor", preprocessor),
+            ("classifier", model)
+        ]
+    )
 
     # Grid Search
     grid_search = GridSearchCV(

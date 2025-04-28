@@ -2,14 +2,14 @@ from flask import Flask, request, render_template
 import mlflow.sklearn
 import pandas as pd
 import mlflow
-import os
 
 mlflow.set_tracking_uri("http://127.0.0.1:5000")
 
 app = Flask(__name__)
 
 # Load model từ Model Registry stage Production
-model = mlflow.sklearn.load_model("models:/Best_customer_churn_predict_model@bestmodel")
+name_model_lookup = "models:/Best_customer_churn_predict_model@bestmodel"
+model = mlflow.sklearn.load_model(name_model_lookup)
 
 # Các cột đầu vào
 INPUT_FEATURES = [
@@ -34,7 +34,10 @@ def predict():
     }  # Khởi tạo input trống mặc định
 
     if request.method == "POST":
-        input_data = {feature: request.form[feature] for feature in INPUT_FEATURES}
+        input_data = {
+            feature: request.form[feature]
+            for feature in INPUT_FEATURES
+        }
 
         # Xử lý dữ liệu để predict
         input_data_processed = {
