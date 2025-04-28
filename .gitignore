@@ -15,3 +15,5 @@ mlruns/
 
 # Ignore log files
 *.log
+
+mlartifacts/

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Churn Prediction</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container py-5">
+    <h1 class="text-center mb-4">Customer Churn Prediction</h1>
+
+    <div class="card shadow p-4">
+        <form method="post" id="predict-form">
+            <div class="row g-3">
+                {% for feature in features %}
+                    <div class="col-md-6">
+                        <label class="form-label">{{ feature }}</label>
+                        {% if feature in ['Geography', 'Gender'] %}
+                            <select class="form-select" name="{{ feature }}" required>
+                                {% if feature == 'Geography' %}
+                                    <option value="France" {% if input_data['Geography'] == 'France' %}selected{% endif %}>France</option>
+                                    <option value="Spain" {% if input_data['Geography'] == 'Spain' %}selected{% endif %}>Spain</option>
+                                    <option value="Germany" {% if input_data['Geography'] == 'Germany' %}selected{% endif %}>Germany</option>
+                                {% elif feature == 'Gender' %}
+                                    <option value="Male" {% if input_data['Gender'] == 'Male' %}selected{% endif %}>Male</option>
+                                    <option value="Female" {% if input_data['Gender'] == 'Female' %}selected{% endif %}>Female</option>
+                                {% endif %}
+                            </select>
+                        {% else %}
+                            <input type="number" step="any" class="form-control" name="{{ feature }}" value="{{ input_data[feature] }}" required>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-primary btn-lg">Predict Churn</button>
+                <button type="button" class="btn btn-secondary btn-lg ms-2" onclick="window.location.href='/'">Clear</button>
+            </div>
+        </form>
+    </div>
+
+    {% if prediction is not none %}
+        <div class="alert alert-info mt-4 text-center">
+            <h4>Prediction Result:</h4>
+            <h3><strong>Customer will {{ 'Churn' if prediction == 1 else 'Stay' }}</strong></h3>
+        </div>
+    {% endif %}
+</div>
+
+</body>
+</html>
