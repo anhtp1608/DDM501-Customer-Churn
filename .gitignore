@@ -1,0 +1,17 @@
+# Ignore virtual env
+venv/
+.env/
+
+# Ignore Python cache
+__pycache__/
+*.py[cod]
+*.so
+
+# Ignore MLflow tracking folder
+mlruns/
+
+# Ignore OS files
+.DS_Store
+
+# Ignore log files
+*.log
